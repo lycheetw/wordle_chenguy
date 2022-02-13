@@ -26,6 +26,8 @@ import {
   ALERT_TIME_MS,
   REVEAL_TIME_MS,
   GAME_LOST_INFO_DELAY,
+  FIRST_HINT_SHOW_TIME,
+  SECOND_HINT_SHOW_TIME
 } from './constants/settings'
 import {
   isWordInWordList,
@@ -93,7 +95,6 @@ function App() {
   const [missingLetterMessage, setIsMissingLetterMessage] = useState('')
 
   const [hint, setHint] = useState([] as string[])
-  const [hintSize, setHintSize] = useState(hint.length)
 
 
   useEffect(() => {
@@ -120,15 +121,11 @@ function App() {
     }
     const hintCharacters = getCharacterHint(guesses)
     setHint(hintCharacters)
-    setHintSize(hintCharacters.length)
     saveGameStateToLocalStorage({ guesses, solution })
-  }, [guesses])
-
-  useEffect(() => {
-    if(hintSize !== 0) {
+    if((guesses.length === FIRST_HINT_SHOW_TIME || guesses.length === SECOND_HINT_SHOW_TIME) && !isWinningWord(currentGuess)) {
       setIsHintModalOpen(true)
     }
-  }, [hintSize])
+  }, [guesses])
 
   useEffect(() => {
     if (isGameWon) {

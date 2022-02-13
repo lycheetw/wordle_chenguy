@@ -50,7 +50,7 @@ type Props = {
 export const HintModal = ({ isOpen, handleClose, hint }: Props) => {
   return (
     <BaseModal title="新的提示來啦！" isOpen={isOpen} handleClose={handleClose}>
-      <div className="flex justify-center mb-2 mt-4 ml-10 mr-10">
+      <div className="flex justify-center mb-2 mt-4 ml-12 mr-12">
         {
           hint.map(it => <Cell value={it} status="present" />)
         }
