@@ -112,6 +112,9 @@ function App() {
   }
 
   useEffect(() => {
+    if (guesses.length === 0) {
+      setIsInfoModalOpen(true)
+    }
     setHint(getCharacterHint(guesses).join(','))
     saveGameStateToLocalStorage({ guesses, solution })
   }, [guesses])
