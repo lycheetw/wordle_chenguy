@@ -1,6 +1,6 @@
 import { Cell } from '../grid/Cell'
 import { BaseModal } from './BaseModal'
-import { FIRST_HINT_SHOW_TIME, SECOND_HINT_SHOW_TIME } from '../../constants/settings'
+import { FIRST_HINT_SHOW_TIME, SECOND_HINT_SHOW_TIME, MAX_CHALLENGES } from '../../constants/settings'
 import { VALID_GUESSES } from '../../constants/validGuesses'
 import { solution } from '../../lib/words'
 
@@ -16,6 +16,10 @@ VALID_GUESSES.forEach(it => {
 })
 
 export const getCharacterHint = (guesses: string[]): string[] => {
+
+  if(guesses.length === MAX_CHALLENGES) {
+    return solution.split('')
+  }
 
   const ret = [] as string[]
   const charSet = new Set(guesses.flatMap(it => it.split('')))
@@ -34,6 +38,9 @@ export const getCharacterHint = (guesses: string[]): string[] => {
       ret.push(hintCharacters[0])
     }
   } else {
+    if (!ret.includes(hintCharacters[0])) {
+      ret.push(hintCharacters[0])
+    }
     if (!ret.includes(hintCharacters[1])) {
       ret.push(hintCharacters[1])
     }
