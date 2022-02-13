@@ -122,7 +122,7 @@ function App() {
     const hintCharacters = getCharacterHint(guesses)
     setHint(hintCharacters)
     saveGameStateToLocalStorage({ guesses, solution })
-    if((guesses.length === FIRST_HINT_SHOW_TIME || guesses.length === SECOND_HINT_SHOW_TIME) && !isWinningWord(currentGuess)) {
+    if((guesses.length === FIRST_HINT_SHOW_TIME || guesses.length === SECOND_HINT_SHOW_TIME) && !isWinningWord(guesses[guesses.length - 1])) {
       setIsHintModalOpen(true)
     }
   }, [guesses])
