@@ -21,11 +21,11 @@ export const SettingsModal = ({
   return (
     <BaseModal title="設定" isOpen={isOpen} handleClose={handleClose}>
       <div className="grid-cols-2 gap-4">
-        <SettingsToggle
+        {/* <SettingsToggle
           settingName="困難模式"
           flag={isHardMode}
           handleFlag={handleHardMode}
-        />
+        /> */}
         <SettingsToggle
           settingName="深色模式"
           flag={isDarkMode}
