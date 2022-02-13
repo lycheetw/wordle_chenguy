@@ -21,13 +21,25 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <p className="text-gray-900 dark:text-gray-100 mt-6">
         <b>顏色說明</b>
       </p>
+      <p className="text-sm text-gray-500 dark:text-gray-300  mt-6">
+        假設正確的答案為
+      </p>
+      <div className="flex justify-center mb-1 mt-2">
+        <Cell value="杯" />
+        <Cell value="水" />
+        <Cell value="車" />
+        <Cell value="薪" />
+      </div>
+      <p className="text-sm text-gray-500 dark:text-gray-300  mt-4">
+        猜測為
+      </p>
       <div className="flex justify-center mb-1 mt-4">
         <Cell value="車" status="present"/>
         <Cell value="水" status="correct"/>
         <Cell value="馬" status="absent"/>
         <Cell value="龍" status="absent"/>
       </div>
-      <p className="text-sm text-gray-500 dark:text-gray-300 mt-6">
+      <p className="text-sm text-gray-500 dark:text-gray-300 mt-4">
         黃色代表答案包含「車」但位置不正確
       </p>
       <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">
@@ -36,15 +48,6 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">
         灰色代表答案不包含「馬、龍」
       </p>
-      <p className="text-sm text-gray-500 dark:text-gray-300  mt-6">
-        正確的答案為
-      </p>
-      <div className="flex justify-center mb-1 mt-4">
-        <Cell value="杯" />
-        <Cell value="水" />
-        <Cell value="車" />
-        <Cell value="薪" />
-      </div>
     </BaseModal>
   )
 }
