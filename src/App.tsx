@@ -14,10 +14,8 @@ import {
   GAME_TITLE,
   WIN_MESSAGES,
   GAME_COPIED_MESSAGE,
-  ABOUT_GAME_MESSAGE,
   NOT_ENOUGH_LETTERS_MESSAGE,
   WORD_NOT_FOUND_MESSAGE,
-  CORRECT_WORD_MESSAGE,
   HINT_TEXT,
   ENTER_TEXT,
 } from './constants/strings'
@@ -137,20 +135,6 @@ function App() {
       }, GAME_LOST_INFO_DELAY)
     }
   }, [isGameWon, isGameLost])
-
-  const onChar = (value: string) => {
-    if (
-      currentGuess.length < MAX_WORD_LENGTH &&
-      guesses.length < MAX_CHALLENGES &&
-      !isGameWon
-    ) {
-      setCurrentGuess(`${currentGuess}${value}`)
-    }
-  }
-
-  const onDelete = () => {
-    setCurrentGuess(currentGuess.slice(0, -1))
-  }
 
   const onEnter = () => {
     if (isGameWon || isGameLost) {
