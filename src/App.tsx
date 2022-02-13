@@ -10,6 +10,7 @@ import { AboutModal } from './components/modals/AboutModal'
 import { InfoModal } from './components/modals/InfoModal'
 import { StatsModal } from './components/modals/StatsModal'
 import { SettingsModal } from './components/modals/SettingsModal'
+import { HintModal, getCharacterHint } from './components/modals/HintModal'
 import {
   GAME_TITLE,
   WIN_MESSAGES,
@@ -31,7 +32,6 @@ import {
   isWinningWord,
   solution,
   findFirstUnusedReveal,
-  getCharacterHint
 } from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 import {
@@ -53,6 +53,7 @@ function App() {
   const [isNotEnoughLetters, setIsNotEnoughLetters] = useState(false)
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false)
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
+  const [isHintModalOpen, setIsHintModalOpen] = useState(false)
   const [isWordNotFoundAlertOpen, setIsWordNotFoundAlertOpen] = useState(false)
   const [isGameLost, setIsGameLost] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(
@@ -91,7 +92,9 @@ function App() {
     useState(false)
   const [missingLetterMessage, setIsMissingLetterMessage] = useState('')
 
-  const [hint, setHint] = useState('')
+  const [hint, setHint] = useState([] as string[])
+  const [hintSize, setHintSize] = useState(hint.length)
+
 
   useEffect(() => {
     if (isDarkMode) {
@@ -115,9 +118,17 @@ function App() {
     if (guesses.length === 0) {
       setIsInfoModalOpen(true)
     }
-    setHint(getCharacterHint(guesses).join(','))
+    const hintCharacters = getCharacterHint(guesses)
+    setHint(hintCharacters)
+    setHintSize(hintCharacters.length)
     saveGameStateToLocalStorage({ guesses, solution })
   }, [guesses])
+
+  useEffect(() => {
+    if(hintSize !== 0) {
+      setIsHintModalOpen(true)
+    }
+  }, [hintSize])
 
   useEffect(() => {
     if (isGameWon) {
@@ -225,7 +236,7 @@ function App() {
   
       <div className="flex w-80 mx-auto items-center">
           <div className="flex border-2 border-gray-200 rounded w-full">
-              <input type="text" className="px-4 py-2 w-9/12" placeholder={`${HINT_TEXT}「${hint}」`}
+              <input type="text" className="px-4 py-2 w-9/12" placeholder={`${HINT_TEXT}「${hint.join(',')}」`}
                 value={currentGuess}
                 onChange={(e) => setCurrentGuess(e.target.value)}/>
               <button className="px-4 text-white bg-gray-600 border-l w-3/12"
@@ -271,6 +282,11 @@ function App() {
         handleHardMode={handleHardMode}
         isDarkMode={isDarkMode}
         handleDarkMode={handleDarkMode}
+      />
+      <HintModal
+        hint={hint}
+        isOpen={isHintModalOpen}
+        handleClose={() => setIsHintModalOpen(false)}
       />
 
       <Alert message={NOT_ENOUGH_LETTERS_MESSAGE} isOpen={isNotEnoughLetters} />
