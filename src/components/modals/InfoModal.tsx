@@ -44,10 +44,10 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         答案不包含「車」
       </p>
       <p className="text-sm text-gray-500 dark:text-gray-300 mt-4">
-        在第 {FIRST_HINT_SHOW_TIME} 次猜測後，會給予一個字的提示。
+        在第 <b>{FIRST_HINT_SHOW_TIME}</b> 次猜測後，會給予一個字的提示。
       </p>
       <p className="text-sm text-gray-500 dark:text-gray-300">
-        在第 {SECOND_HINT_SHOW_TIME} 次猜測後，會給予二個字的提示。
+        在第 <b>{SECOND_HINT_SHOW_TIME}</b> 次猜測後，會給予二個字的提示。
       </p>
     </BaseModal>
   )
