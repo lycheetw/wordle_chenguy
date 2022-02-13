@@ -117,7 +117,8 @@ function App() {
   useEffect(() => {
     if (guesses.length === 0) {
       setIsInfoModalOpen(true)
-    } else if (guesses.length === MAX_CHALLENGES) {
+    }
+    if (guesses.length === MAX_CHALLENGES) {
       setHint(solution.split(''))
     } else {
       const hintCharacters = getCharacterHint(guesses)
