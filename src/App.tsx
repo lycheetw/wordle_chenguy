@@ -245,7 +245,16 @@ function App() {
         gameStats={stats}
         isGameLost={isGameLost}
         isGameWon={isGameWon}
-        handleShare={() => {
+        handleShare={async(text: string) => {
+          if (navigator.share) {
+            navigator.share({
+              text: text,
+            }).then(() => {
+              // Do nothing
+            })
+            .catch(console.error);
+          }
+          navigator.clipboard.writeText(text)
           setSuccessAlert(GAME_COPIED_MESSAGE)
           return setTimeout(() => setSuccessAlert(''), ALERT_TIME_MS)
         }}
