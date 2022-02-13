@@ -1,6 +1,7 @@
 import { Cell } from '../grid/Cell'
 import { BaseModal } from './BaseModal'
-import { MAX_CHALLENGES, FIRST_HINT_SHOW_TIME, SECOND_HINT_SHOW_TIME } from '../../constants/settings'
+import { MAX_CHALLENGES } from '../../constants/settings'
+import { getCharacterHint } from './HintModal'
 
 type Props = {
   isOpen: boolean
@@ -8,12 +9,18 @@ type Props = {
 }
 
 export const InfoModal = ({ isOpen, handleClose }: Props) => {
+  const hintChar = getCharacterHint([])[0]
   return (
     <BaseModal title="遊戲方法" isOpen={isOpen} handleClose={handleClose}>
-      <p className="text-sm text-gray-500 dark:text-gray-300">
-        在 {MAX_CHALLENGES} 次以內猜到成語。每次猜測後，格子會藉由變色，作為讓目前猜測狀況的提示。
+      <p className="text-sm text-gray-500 dark:text-gray-300 mt-4">
+        這是一個包含「{hintChar}」的成語。請在 {MAX_CHALLENGES} 次以內猜到它。
       </p>
-
+      <div className="flex justify-center mb-2 mt-4 ml-10 mr-10">
+        <Cell value={hintChar} status="present" />
+      </div>
+      <p className="text-gray-900 dark:text-gray-100 mt-6">
+        <b>顏色說明</b>
+      </p>
       <div className="flex justify-center mb-1 mt-4">
         <Cell value="一" status="correct" />
         <Cell value="馬" />
@@ -42,12 +49,6 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300">
         答案不包含「車」
-      </p>
-      <p className="text-sm text-gray-500 dark:text-gray-300 mt-4">
-        在第 <b>{FIRST_HINT_SHOW_TIME}</b> 次猜測後，會給予一個字的提示。
-      </p>
-      <p className="text-sm text-gray-500 dark:text-gray-300">
-        在第 <b>{SECOND_HINT_SHOW_TIME}</b> 次猜測後，會給予二個字的提示。
       </p>
     </BaseModal>
   )

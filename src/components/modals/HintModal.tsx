@@ -1,6 +1,6 @@
 import { Cell } from '../grid/Cell'
 import { BaseModal } from './BaseModal'
-import { FIRST_HINT_SHOW_TIME, SECOND_HINT_SHOW_TIME, MAX_CHALLENGES } from '../../constants/settings'
+import { MAX_CHALLENGES } from '../../constants/settings'
 import { VALID_GUESSES } from '../../constants/validGuesses'
 import { solution } from '../../lib/words'
 
@@ -31,21 +31,7 @@ export const getCharacterHint = (guesses: string[]): string[] => {
   })
 
   const hintCharacters = solutionCharacters.map(it => [it, characterFrequncy[it]]).sort((a, b) => b[1] - a[1]).map(it => it[0])
-  if (guesses.length < FIRST_HINT_SHOW_TIME) {
-    // Do nothing
-  } else if (guesses.length < SECOND_HINT_SHOW_TIME) {
-    if (!ret.includes(hintCharacters[0])) {
-      ret.push(hintCharacters[0])
-    }
-  } else {
-    if (!ret.includes(hintCharacters[0])) {
-      ret.push(hintCharacters[0])
-    }
-    if (!ret.includes(hintCharacters[1])) {
-      ret.push(hintCharacters[1])
-    }
-  }
-  return ret
+  return hintCharacters
 }
 
 type Props = {
@@ -56,10 +42,13 @@ type Props = {
 
 export const HintModal = ({ isOpen, handleClose, hint }: Props) => {
   return (
-    <BaseModal title="新的提示來啦！" isOpen={isOpen} handleClose={handleClose}>
-      <div className="flex justify-center mb-2 mt-4 ml-12 mr-12">
+    <BaseModal title="提示" isOpen={isOpen} handleClose={handleClose}>
+      <p className="text-sm text-gray-500 dark:text-gray-300">
+        這是一個包含「{hint.join('、')}」的成語
+      </p>
+      <div className="flex justify-center mb-2 mt-4 ml-10 mr-10">
         {
-          hint.map(it => <Cell value={it} status="present" />)
+          hint.map(it => <Cell key={it} value={it} status="present" />)
         }
       </div>
     </BaseModal>
