@@ -31,7 +31,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="薪" />
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300  mt-4">
-        猜測為
+        而猜測的是
       </p>
       <div className="flex justify-center mb-1 mt-4">
         <Cell value="車" status="present"/>
@@ -40,13 +40,13 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="龍" status="absent"/>
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300 mt-4">
-        黃色代表答案包含「車」但位置不正確
+        黃底代表答案包含「車」但位置不正確
       </p>
       <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">
-        綠色代表答案包含「水」且位置正確
+        綠底代表答案包含「水」且位置正確
       </p>
       <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">
-        灰色代表答案不包含「馬、龍」
+        灰底代表答案不包含「馬、龍」
       </p>
     </BaseModal>
   )
